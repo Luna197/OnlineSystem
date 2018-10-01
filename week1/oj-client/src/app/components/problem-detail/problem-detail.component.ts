@@ -1,0 +1,30 @@
+import { Component, OnInit, Inject } from '@angular/core';
+import { Problem } from '../../models/problem.model';
+import { ActivatedRoute, Params } from '@angular/router'
+
+
+
+@Component({
+  selector: 'app-problem-detail',
+  templateUrl: './problem-detail.component.html',
+  styleUrls: ['./problem-detail.component.css']
+})
+export class ProblemDetailComponent implements OnInit {
+
+  problem: Problem;
+
+  constructor(
+    private route: ActivatedRoute,
+    @Inject("data") private data
+  ) { }
+
+  ngOnInit() {
+    // subscribe - when routes url changes/params changes, use function, params is a array
+    this.route.params.subscribe(params => {
+    // this id now is string, "+" makes it becomes a number
+      this.problem = this.data.getProblem(+params["id"]);
+      // when get the id, next is to get the PROBLEMS
+    });
+  }
+
+}
